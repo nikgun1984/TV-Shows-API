@@ -22,7 +22,7 @@ async function searchShows(query) {
   // hard coded data.
   const newStr = query.split(' ').join('%20');
   const show = await axios.get(`https://api.tvmaze.com/search/shows?q=${newStr}`);
-  console.log(show.data[0].show.genres[0]);
+  console.log(show.data[0].show.id);
   return [{
     id: show.data[0].show.id,
     name: show.data[0].show.name,
@@ -42,7 +42,9 @@ function populateShows(shows) {
 
   for (let show of shows) {
     let $item = $(
-      `<div class="col-xl-6 Show" data-show-id="${show.id}">
+      `
+      <div class="row mt-3" data-show-id="${show.id}" id="show">
+      <div class="col-xl-6 Show" data-show-id="${show.id}">
          <div class="card" data-show-id="${show.id}">
            <div class="card-body">
              <h3 class="card-title text-center">${show.name}</h3>
@@ -53,7 +55,8 @@ function populateShows(shows) {
            </div>
          </div>
        </div>
-      `);
+       </div>
+    `);
       
     $showsList.append($item);
     for(let genre of show.genre){
@@ -71,21 +74,34 @@ function populateShows(shows) {
 
 $("#search-form").on("submit", async function handleSearch(evt) {
   evt.preventDefault();
-
   let query = $("#search-query").val();
   console.log(query);
   if (!query) return;
-
   let shows = await searchShows(query);
-
   populateShows(shows);
 });
 
-$("div#shows-list").on('click', 'button', async function (e) {
+$("div#shows-list").on('click', 'button#episodes', async function (e) {
   e.preventDefault();
   const episodes = await getEpisodes($(".Show").attr('data-show-id'));
   populateEpisodes(episodes);
-  $(this).prop("disabled", true);
+  $("button#episodes").prop("disabled", true);
+})
+
+$(document).on('click','.table tr',async function(e){
+  e.preventDefault();
+  if(e.target.tagName === 'BUTTON'){
+    const id = $(this).parents()[6].getAttribute('data-show-id');
+    const number = e.target.parentElement.getAttribute('data-episode-number');
+    const season = e.target.parentElement.getAttribute('data-episode-season');
+    const episode = await getEpisode(id,season,number);
+    episodeSummary(episode);
+  }
+})
+
+$('button.close').on('click',function(e){
+  e.preventDefault()
+  $('div.modal-body').empty();
 })
 
 
@@ -98,8 +114,15 @@ async function getEpisodes(id) {
   //       you can get this by making GET request to
   //       http://api.tvmaze.com/shows/SHOW-ID-HERE/episodes
   const res = await axios.get(`https://api.tvmaze.com/shows/${id}/episodes`);
-  return res.data
+  return res.data;
 }
+
+async function getEpisode(id,season,number){
+  const res = await axios.get(`https://api.tvmaze.com/shows/${id}/episodebynumber?season=${season}&number=${number}`);
+  return res.data;
+}
+
+// async function get
 
 function populateEpisodes(episodes) {
   let $item = $(
@@ -119,11 +142,11 @@ function populateEpisodes(episodes) {
     </div>
     `
   );
-  const $episodeList = $("div#shows-list");
+  const $episodeList = $("div#show");
   $episodeList.append($item);
   for (let episode of episodes) {
-    let $entry = $('<tr></tr>');
-    $entry.append(`<td>${episode["number"]}</td>`).append(`<td>${episode["name"]}</td>`).append(`<td>${episode["season"]}</td>`);
+    let $entry = $(`<tr data-episode-id='${episode.id}' data-episode-season='${episode.season}' data-episode-number='${episode.number}'></tr>`);
+    $entry.append(`<td>${episode.number}</td>`).append(`<td>${episode.name}</td>`).append(`<td>${episode.season}</td>`).append(`<button type="button" class="btn-danger border rounded" data-toggle="modal" data-target="#exampleModal">more info</button>`);
     $("table.table").append($entry);
   }
 
@@ -143,4 +166,24 @@ function populateEpisodes(episodes) {
   });
 
   $('.dataTables_length').addClass('bs-select');
+}
+
+function episodeSummary(episode){
+  console.log($('h3#exampleModalLabel'));
+  $('h3#exampleModalLabel').text(episode.name);
+  $('div.modal-body').append(`
+  <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+    <h6 class="text-center">Season ${episode.season} | Episode ${episode.number}</h6>
+    <img src="${episode.image['medium'] || 'https://tinyurl.com/tv-missing'}" alt="">
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <p>${episode.summary}</p>
+    </div>
+  </div>
+</div>
+  `)
 }
