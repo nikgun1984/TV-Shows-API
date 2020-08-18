@@ -129,7 +129,7 @@ function populateEpisodes(episodes) {
 
   $('#scrollable').DataTable({
     destroy: true,
-    scrollY: '100vh',
+    scrollY: '90vh',
     scrollCollapse: true,
     paging: false,
     "order": [
