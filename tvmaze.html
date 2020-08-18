@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <title>TV Maze</title>
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="display-2 text-light text-center m-5">TV Maze</h1>
+    <div class="row justify-content-center">
+      <form class="form-inline" id="search-form">
+        <input class="form-control m-3" id="search-query" value="" placeholder="Search for the show">
+        <button class="btn btn-primary" type="submit">Go!</button>
+      </form>    
+    </div>
+    <div class="row mt-3" id="shows-list">
+    </div>
+  </div>
+  <script src="http://unpkg.com/jquery"></script>
+  <script src="http://unpkg.com/axios/dist/axios.js"></script>
+  <script src="tvmaze.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+</body>
+
+</html>
