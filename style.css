@@ -25,4 +25,6 @@ bottom: .5em;
 input[type="search"]{
     border-radius:5px;
     height: 40px;
+    float: left;
 }
+

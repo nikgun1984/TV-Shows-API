@@ -1,42 +1,56 @@
 <!doctype html>
 <html>
+
 <head>
   <title>TV Maze</title>
   <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
-    <h1 class="display-2 text-light text-center m-5">TV Maze</h1>
+    <h1 class="display-2 text-light text-center m-5"><i class="fas fa-compact-disc"></i> TV<i
+        class="fas fa-film"></i>GUIDE <i class="fas fa-compact-disc"></i></h1>
     <div class="row justify-content-center">
       <form class="form-inline" id="search-form">
         <input class="form-control m-3" id="search-query" value="" placeholder="Search for the show">
         <button class="btn btn-primary" type="submit">Go!</button>
-      </form>    
+      </form>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row justify-content-center" id="results">
     </div>
   </div>
   <div class="container" id="shows-list">
   </div>
-<!-- Modal -->
+  <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
     <div class="modal-dialog">
-    <div class="modal-content">
+      <div class="modal-content">
         <div class="modal-header justify-content-center">
           <h3 class="modal-title episode-title" id="exampleModalLabel"></h3>
         </div>
         <div class="modal-body">
         </div>
         <div class="modal-footer justify-content-center">
-            <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
         </div>
+      </div>
     </div>
-    </div>
-</div>
+  </div>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
   <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="script.js" type="text/javascript"></script>
 
