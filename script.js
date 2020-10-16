@@ -194,3 +194,5 @@ $('button.close').on('click',function(e){
 function isImageExists(show){
   return show.image?show.image.medium:'https://tinyurl.com/tv-missing';
 }
+
+function dummyFunc(){}
